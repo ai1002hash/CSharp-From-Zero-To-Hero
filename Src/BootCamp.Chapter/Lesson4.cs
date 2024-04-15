@@ -32,8 +32,21 @@ namespace BootCamp.Chapter
 
         public static float promptFloat(string input)
         {
+            bool isFloat;
+            float inputResult;
+
             Console.WriteLine(input);
-            return float.Parse(Console.ReadLine());
+
+            isFloat = float.TryParse(Console.ReadLine(), out inputResult);
+
+            if (isFloat)
+            {
+                return inputResult;
+            }
+
+                Console.WriteLine($"{input} is not a valid number.");
+                return -1;
+
         }
 
         public static string promptString(string input)
