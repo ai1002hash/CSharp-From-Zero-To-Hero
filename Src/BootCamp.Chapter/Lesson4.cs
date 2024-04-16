@@ -6,6 +6,10 @@ namespace BootCamp.Chapter
 {
     internal class Lesson4
     {
+
+        const float floatError = -1.0f;
+        const int intError = -1;
+        const string stringError = "-";
         public static void Demo()
         {
 
@@ -27,6 +31,16 @@ namespace BootCamp.Chapter
 
         public static float BodyMassIndex(float weight, float height)
         {
+            if (weight <= 0) 
+            {
+                Console.WriteLine($"Weight cannot be equal or less than zero, but was {weight}");
+            }
+
+            if (height <= 0) 
+            { 
+            Console.WriteLine($"Height cannot be equal or less than zero, but was {weight}");
+            }
+
             return weight / (height * height);
         }
 
@@ -45,21 +59,42 @@ namespace BootCamp.Chapter
             }
 
                 Console.WriteLine($"{input} is not a valid number.");
-                return -1;
+                return floatError;
 
         }
 
         public static string promptString(string input)
         {
+       
             Console.WriteLine(input);
-            return Console.ReadLine();
+            string stringCheck = Console.ReadLine();
+
+            if (!string.IsNullOrEmpty(stringCheck))
+            {
+                return stringCheck;
+            }
+
+            Console.WriteLine("Name cannot be empty.");
+            return stringError;
 
         }
 
         public static int promptInt(string input)
         {
+            bool isInt;
+            int inputResult;
+
             Console.WriteLine(input);
-            return int.Parse(Console.ReadLine());
+
+            isInt = int.TryParse(Console.ReadLine(), out inputResult);
+
+            if (isInt)
+            {
+                return inputResult;
+            }
+
+            Console.WriteLine($"{input} is not a valid number.");
+            return intError;
         }
 
 
