@@ -7,7 +7,7 @@ namespace BootCamp.Chapter
     internal class Lesson4
     {
 
-        const float floatError = -1.0f;
+        const float floatError = -1f;
         const int intError = -1;
         const string stringError = "-";
         public static void Demo()
@@ -31,17 +31,28 @@ namespace BootCamp.Chapter
 
         public static float BodyMassIndex(float weight, float height)
         {
-            if (weight <= 0) 
+
+            if (weight <= 0 || height <= 0)
             {
-                Console.WriteLine($"Weight cannot be equal or less than zero, but was {weight}");
+                string errorMessage = "Failed calculating BMI. Reason:";
+
+                if (weight <= 0)
+                {
+                    errorMessage += $" Weight cannot be equal or less than zero, but was {weight}.";
+                }
+
+                if (height <= 0)
+                {
+                    errorMessage += $" Height cannot be equal or less than zero, but was {height}.";
+                }
+
+                Console.WriteLine(errorMessage);
+
+                return floatError;
             }
 
-            if (height <= 0) 
-            { 
-            Console.WriteLine($"Height cannot be equal or less than zero, but was {weight}");
-            }
-
-            return weight / (height * height);
+            float bmi = (float)(weight / Math.Pow(height, 2));
+            return bmi;
         }
 
         public static float promptFloat(string input)
@@ -50,15 +61,16 @@ namespace BootCamp.Chapter
             float inputResult;
 
             Console.WriteLine(input);
+            string stringCheck = Console.ReadLine();
 
-            isFloat = float.TryParse(Console.ReadLine(), out inputResult);
+            isFloat = float.TryParse(stringCheck, out inputResult);
 
             if (isFloat)
             {
                 return inputResult;
             }
 
-                Console.WriteLine($"{input} is not a valid number.");
+                Console.WriteLine($"\"{stringCheck}\" is not a valid number.");
                 return floatError;
 
         }
@@ -85,15 +97,16 @@ namespace BootCamp.Chapter
             int inputResult;
 
             Console.WriteLine(input);
+            string stringCheck = Console.ReadLine();
 
-            isInt = int.TryParse(Console.ReadLine(), out inputResult);
+            isInt = int.TryParse(stringCheck, out inputResult);
 
             if (isInt)
             {
                 return inputResult;
             }
 
-            Console.WriteLine($"{input} is not a valid number.");
+            Console.WriteLine($"\"{stringCheck}\" is not a valid number.");
             return intError;
         }
 
